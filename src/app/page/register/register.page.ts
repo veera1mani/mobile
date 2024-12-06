@@ -59,7 +59,7 @@ export class RegisterPage implements OnInit {
         if(data.code == '0000'){
           localStorage.setItem('userData', JSON.stringify(data?.data));
           this.helper.presentToast('Successfully registered');
-          this.navCtrl.navigateForward(['/common-page']); 
+          this.navCtrl.navigateForward(['/common-dashboard/common-page']); 
         }
       }).catch((err: any) =>{
         this.auth.closeSpinner();

@@ -50,7 +50,7 @@ export class ScanQrPage implements OnInit {
         console.log('scanned data   ::: ',scanneed); 
         let v = localStorage.getItem('userData');
         if(v){
-          this.router.navigate(['/common-page']); 
+          this.router.navigate(['/common-dashboard/common-page']); 
         }else{
           this.router.navigateByUrl('/register');
         }

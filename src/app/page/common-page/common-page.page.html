@@ -1,8 +1,102 @@
 <ion-header>
   <ion-toolbar>
-    <ion-icon (click)="back()" class="ml-4" name="menu-outline" size="large"></ion-icon>
+    <div class="flex justify-between items-center px-4">
+      <!-- Left Section -->
+      <div class="flex items-center space-x-4">
+        <ion-icon 
+          (click)="back()" 
+          class="text-xl cursor-pointer" 
+          name="menu-outline">
+        </ion-icon>
+        <img 
+          src="../../../assets/Link.png" 
+          class="w-10 h-auto" 
+          alt="Link">
+      </div>
+      
+      <!-- Right Section -->
+      <div class="flex items-center space-x-4">
+        <ion-icon 
+          class="text-xl cursor-pointer" 
+          name="search-outline">
+        </ion-icon>
+        <ion-icon 
+          class="text-xl cursor-pointer" 
+          name="notifications-outline">
+        </ion-icon>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
+
+<ion-content class="ion-padding">
+  <!-- Greeting and Summary -->
+  <div class="text-left mb-2">
+    <p class="text-sm text-gray-500">Good Morning,</p>
+    <h1 class="text-2xl font-bold text-gray-900">Karthik</h1>
+  </div>
+
+  <div class="flex justify-between items-center">
+    <div class="flex">
+      <p class="text-lg font-medium text-gray-700 ">Revenue Summary</p>
+    </div>
+    <!-- Time Range Buttons -->
+    <div class="flex justify-between items-center">
+      <button class="px-2 py-2 text-sm font-medium text-gray-700 border border-yellow-400 rounded hover:bg-yellow-100 focus:bg-yellow-100 focus:text-yellow-500">
+        1D
+      </button>
+      <button class="px-2 py-2 text-sm font-medium text-gray-700 border border-yellow-400 rounded hover:bg-yellow-100 focus:bg-yellow-100 focus:text-yellow-500">
+        1M
+      </button> 
+      <button class="px-2 py-2 text-sm font-medium text-gray-700 border border-yellow-400 rounded hover:bg-yellow-100 focus:bg-yellow-100 focus:text-yellow-500">
+        1Y
+      </button>
+      <button class="px-2 py-2 text-sm font-medium text-gray-700 border border-yellow-400 rounded hover:bg-yellow-100 focus:bg-yellow-100 focus:text-yellow-500">
+        All
+      </button>
+    </div>
+  </div>
   
+
+  <!-- Profit Summary Cards -->
+  <div class="grid grid-cols-2 gap-4 mb-6">
+    <!-- Total Profit Card -->
+    <div class="px-4 py-2 border border-yellow-400 rounded-lg text-start" >
+      <p class="text-sm font-medium text-gray-700">Total Profit</p>
+      <p class="text-xl font-bold text-gray-900 mt-2">$13.20k</p>
+    </div>
+    <!-- Best Profit Card -->
+    <div class="px-4 py-2 border border-yellow-400 rounded-lg text-start">
+      <p class="text-sm font-medium text-gray-700">Best Profit</p>
+      <p class="text-xl font-bold text-gray-900 mt-2">$08.20k</p>
+    </div>
+    <!-- Repeat for Additional Cards -->
+    <div class="px-4 py-2 border border-yellow-400 rounded-lg text-start">
+      <p class="text-sm font-medium text-gray-700">Total Profit</p>
+      <p class="text-xl font-bold text-gray-900 mt-2">$13.20k</p>
+    </div>
+    <div class="px-4 py-2 border border-yellow-400 rounded-lg text-start">
+      <p class="text-sm font-medium text-gray-700">Best Profit</p>
+      <p class="text-xl font-bold text-gray-900 mt-2">$08.20k</p>
+    </div>
+  </div>
+
+  <!-- Date Picker -->
+  
+  
+
+  <!-- Graph Div -->
+    <div class="w-full lg:max-w-2xl xl:max-w-4xl mx-auto bg-white rounded-3xl shadow-md relative box-shade ">
+      <div class="flex p-8 items-center justify-between">
+        <!-- Date Field -->
+        <div class="rounded-full border border-gray-300 px-4 py-2">
+          <p class="text-sm text-gray-700">01/12/2024 - 06/12/2024</p>
+        </div>
+      
+        <!-- Calendar Icon -->
+        <ion-icon name="calendar-outline" class="text-gray-500 text-lg ml-3"></ion-icon>
+      </div>
+      <highcharts-chart [Highcharts]="Highcharts" [options]="Pollutant" class="w-full h-full block"></highcharts-chart>
+    </div>
 </ion-content>
+

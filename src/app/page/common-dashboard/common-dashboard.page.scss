@@ -2,16 +2,16 @@
     position: relative;
     --ripple-color:none;
     &.selected {
-       --color: #fff;
-       color: white;
+       --color: black;
+       color: black;
        ion-icon{
         align-self: center;
-         color: white;
+         color: black;
        }
        ::ng-deep div {
         justify-content: center;
-        background-color: #F47B21;
-        color: #ffffff;
+        background-color: #FFCD11;
+        color: black;
         display: flex;
         flex-direction: column;
         border-radius: 65px;
