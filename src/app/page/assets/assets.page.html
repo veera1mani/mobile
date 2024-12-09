@@ -53,7 +53,7 @@
           <ion-text >{{item?.assetId}}</ion-text>
         </ion-col>
       </ion-row>
-      <ion-row style="margin-top: 8px;">
+      <ion-row >
         <ion-col size="4.5" class="col_details">
           <ion-text>Model</ion-text>
           <ion-text>:</ion-text>
@@ -62,7 +62,7 @@
           <ion-text>{{item?.model}}</ion-text>
         </ion-col>
       </ion-row>
-      <ion-row style="margin-top: 8px;">
+      <ion-row >
         <ion-col size="4.5" class="col_details">
           <ion-text>Dealer</ion-text>
           <ion-text>:</ion-text>
@@ -81,16 +81,9 @@
         </ion-col>
       </ion-row>
 
-      <ion-row class="view_outlet"> 
-       
-          <div class="order_Style " [ngStyle]="{'background' : item?.status==='Delivered' ? '#CF142B' :item?.status==='Shipped'? '#52A811':'#afaf37'}">
-            <ion-text style="color: white;">{{item?.invoiceStatus}}</ion-text>
-          </div>
-        
-        
-        
+      <ion-row class="view_outlet "> 
         <div class="order_Style button_bg" style="color: rgba(245,123,32,1);background: #FDE2CE;" >
-          <ion-text  class="view_det_color" (click)="ticketDetail(item?.ticketId , item?.invoiceNumber)" >View Details</ion-text>
+          <ion-text  class="view_det_color" (click)="ticketDetail(item?.ticketId)" >View Details</ion-text>
           <ion-icon name="chevron-forward-outline"  color="green"></ion-icon>
         </div>
       </ion-row>

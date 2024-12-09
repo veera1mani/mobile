@@ -12,6 +12,10 @@ export class AssetsPage implements OnInit {
   
   dataFetched: boolean = true;
   filteredOrderList: any;
+orderDetail: any;
+invoiceDetails: any;
+invoise: any;
+status: any;
 
 
   constructor(private auth: AuthService, private navCtrl: NavController ) { }
@@ -40,8 +44,8 @@ export class AssetsPage implements OnInit {
     this.navCtrl.navigateBack('/common-dashboard/common-page');
   }
 
-  ticketDetail(arg0: any,arg1: any) {
-    throw new Error('Method not implemented.');
+  ticketDetail(item: any) {
+    this.navCtrl.navigateForward('/common-dashboard/assets/asset');
   }
 
   handleRefresh(event: any) {

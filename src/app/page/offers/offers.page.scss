@@ -1,6 +1,7 @@
 
 ion-content{
-    --ion-background-color:"#F6F6F6"
+    // --ion-background-color:"#F6F6F6"
+    --background: url('../../../assets/backgroundImage.png') no-repeat center center
   }
   .padding_st{
     padding: 8px;padding-top: 18px;padding-bottom: 12px;
@@ -34,7 +35,9 @@ ion-content{
   }
 
   .view_outlet{
-    display: flex;justify-content: space-between;margin-top: 8px;
+    display: flex;
+    justify-content: end;
+    margin-top: 8px;
   }
 
   .full_view{
