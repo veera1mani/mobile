@@ -8,13 +8,18 @@ const routes: Routes = [
     path: '',
     component: CommonDashboardPage,
     children: [
-      {
-        path: 'home',
-        loadChildren: () => import('../home-bottom-navi/home-bottom-navi.module').then( m => m.HomeBottomNaviPageModule)
-      },
+      
       {
         path: 'common-page',
         loadChildren: () => import('../../page/common-page/common-page.module').then( m => m.CommonPagePageModule)
+      },
+      {
+        path: 'assets',
+        loadChildren: () => import('../../page/assets/assets.module').then( m => m.AssetsPageModule)
+      },
+      {
+        path: 'offers',
+        loadChildren: () => import('../../page/offers/offers.module').then( m => m.OffersPageModule)
       },
       {
         path: '',

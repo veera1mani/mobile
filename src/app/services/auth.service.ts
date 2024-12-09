@@ -10,7 +10,7 @@ export class AuthService {
   private is_login: boolean = false;
   constructor(private http: HttpClient, private spinner: NgxSpinnerService) {
     this.HOST_URL = environment.baseUrl;
-    this.BASE_URL = this.HOST_URL + 'rest/api/v1'
+    this.BASE_URL = this.HOST_URL + 'catDigital/rest/api/v1'
 
   }
   openSpinner() {
@@ -165,7 +165,7 @@ export class AuthService {
    queryService(serviceId: any, filter?: any) {
     //  let url: string = `${this.BASE_URL}/` + serviceId+'?filter='+JSON.stringify(filter);
     let url: string = `${this.BASE_URL}/` + serviceId;
-    return this.http.get(encodeURI(url), { headers: this.getBarearHeader() }).toPromise();
+    return this.http.get(encodeURI(url), { headers: this.getDefaultHeader() }).toPromise();
   }
 
   query(serviceId: any, filter?: any)   {

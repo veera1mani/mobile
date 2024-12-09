@@ -63,4 +63,8 @@ export class ScanQrPage implements OnInit {
   register(){
     this.navCtrl.navigateForward('/register');
   }
+
+  home(){
+    this.navCtrl.navigateForward('/home');
+  }
 }

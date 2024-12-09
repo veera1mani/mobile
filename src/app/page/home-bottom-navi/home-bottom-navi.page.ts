@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
-import { AlertController, NavController } from '@ionic/angular';
-import * as Highcharts from 'highcharts';
-import { CommonDashboardPage } from 'src/app/page/common-dashboard/common-dashboard.page';
-import { HelperService } from 'src/app/services/helper.service';
+import { Sim } from '@jonz94/capacitor-sim';
+import { AlertController } from '@ionic/angular';
+import { Geolocation } from '@capacitor/geolocation';
+import { VoiceRecorderService } from 'src/app/services/voice-recorder.service.ts.service';
+import { PhoneService } from 'src/app/services/phone.service';
+
+const getSimCards = async () => {
+  const { simCards } = await Sim.getSimCards();
+  // console.log(simCards);
+  return simCards;
+}
 
 
 @Component({
@@ -14,213 +19,91 @@ import { HelperService } from 'src/app/services/helper.service';
   
 })
 export class HomeBottomNaviPage implements OnInit {
-  name: string = 'Veera';
-  Highcharts: typeof Highcharts = Highcharts;
-  chartOptions: Highcharts.Options = {
-    series: [
-      {
-        data: [1, 2, 3],
-        type: 'line',
-      },
-    ],
-    title: {
-      text: '' ,
-    },
-  };
-  Pollutant: any;
-  userName: any;
-  scannedNumber: any;
-  tenantId: any;
-  user: any;
-
   
-  constructor(public dashboard: CommonDashboardPage,public helper: HelperService ,  public alertController: AlertController, public navCtrl: NavController, private router: Router ) { 
+  isRecording = false;
+  recordedFileObj: any = null;
+  audio = new Audio();
+  phoneNumberInput: string = '';
+  latitude: number = 0;
+  longitude: number = 0;
 
+  /* 
+  * For Location
+  * For Phone Number
+  * For Audio Recoding
+  */
 
+  constructor(private voiceRecorderService: VoiceRecorderService, private alertController: AlertController, private phoneService: PhoneService) {
   }
 
-  async presentLogoutAlert() {
-    
-  }
   ngOnInit() {
-    this.userName= localStorage.getItem('user_name');
-    this.tenantId = localStorage.getItem('tenant_id');
-    let u : any = localStorage.getItem('etraze_user');
-    this.user = JSON.parse(u);
-
-    this.Pollutant = {
-      label: { enabled: false },
-      xAxis: {
-        accessibility: {
-          rangeDescription: 'Range: 2010 to 2020',
-        },
-      },
-
-      legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle',
-      },
-      
-      plotOptions: {
-        series: {
-          label: {
-            connectorAllowed: false,
-          },
-          pointStart: 2010,
-        },
-      },
-
-      series: [
-        {
-          name: 'Installation & Developers',
-          data: [
-            43934, 48656, 65165, 81827, 112143, 142383, 171533, 165174, 155157,
-            161454, 154610,
-          ],
-        },
-        {
-          name: 'Other',
-          data: [
-            21908, 5548, 8105, 11248, 8989, 11816, 18274, 17300, 13053, 11906,
-            10073,
-          ],
-        },
-      ],
-      title: {
-        value:''
-       },
-      credits:{
-        enabled:false
-      },
-
-      responsive: {
-        rules: [
-          {
-            condition: {
-              maxWidth: 500,
-            },
-            chartOptions: {
-              legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom',
-              },
-            },            
-          },
-        ],
-      },
-    };
-    this.googleModule();
-  }
-  
-  isModalOpen = false;
-
-  openModal() {
-    this.isModalOpen = true;
+    this.getPhoneNumber();
+    this.getCurrentLocations();
   }
 
-  closeModal() {
-    this.isModalOpen = false;
+  // ----------> For Location
+  async requestLocation() {
+    try {
+      await Geolocation.requestPermissions();
+    } catch (error) {
+      console.error('Error requesting location permission', error);
+    }
   }
 
-  confirmLogout() {
-    // Implement your logout logic here
-    console.log('Logout confirmed');
-    this.closeModal();
+  async getCurrentLocations() {
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      this.latitude = coordinates.coords.latitude;
+      this.longitude = coordinates.coords.longitude;
+
+      console.log('Current Location:', this.latitude, this.longitude);
+    } catch (error: any) {
+      console.error('Error in location', error);
+    }
   }
 
-  openNoti() {
-    this.router.navigateByUrl('/common-dashboard/home/Notification');
+  // ------------> For Phone Number
+  async getPhoneNumber() {
+    const simCards = await getSimCards();
+    this.checkPhoneNumbers(simCards);
   }
 
-  showCustomAlert = false;
-
-  openCustomAlert() {
-    this.showCustomAlert = true;
-  }
-
-  closeCustomAlert() {
-    this.showCustomAlert = false;
-  }
-
-  tickets(){
-    this.dashboard.onTabChange('tickets');
-    this.router.navigateByUrl('/common-dashboard/tickets');
-  }
-  orders(){
-    this.dashboard.onTabChange('orders');
-    this.router.navigateByUrl('/common-dashboard/orders');
-  }
-  returns(){
-    this.dashboard.onTabChange('returns');
-    this.router.navigateByUrl('/common-dashboard/returns');
-  }
-  cheques(){
-    this.dashboard.onTabChange('cheques');
-    this.router.navigateByUrl('/common-dashboard/cheques');
-  }
-
-
-  data: any;
-  googleModule() {
-    BarcodeScanner.isGoogleBarcodeScannerModuleAvailable().then(result => {
-      if (!result.available) {
-        BarcodeScanner.installGoogleBarcodeScannerModule().then(() => {
-          console.log('Google Barcode Scanner Module installed successfully.');
-        }).catch(error => {
-          console.error('Error installing Google Barcode Scanner Module:', error);
-        });
-      } else {
-        console.log('value: Google Barcode Scanner Module is already available.');
-      }
+  async checkPhoneNumbers(simArr: any) { //numbers: { number: string, carrierName: string }[]
+    await this.phoneService.handlePhoneNumbers(simArr, (selectedNumber: string) => {
+      this.phoneNumberInput = selectedNumber;
     });
   }
-  isGoogleBarcodeScannerModuleAvailable = async () => {
-    const { available } =
-      await BarcodeScanner.isGoogleBarcodeScannerModuleAvailable();
-    return available;
-  };
 
-  installGoogleBarcodeScannerModule = async () => {
-    await BarcodeScanner.installGoogleBarcodeScannerModule();
-  };
 
-  qrData = {  
-    ticketNumber: '',  
-    invoiceNumber: '',  
-    tenantId: '' ,
-    type: '' 
-  };
+  // --------------> For Recording 
+  playRecording(): void {
+    const base64Sound = this.recordedFileObj.recordDataBase64
+    const mimeType = this.recordedFileObj.mimeType
+    const audioRef = new Audio(`data:${mimeType};base64,${base64Sound}`)
+    audioRef.oncanplaythrough = () => audioRef.play()
+    audioRef.load()
+  }
 
-  scanBarcode = async () => {
-    try {
-      const result = await BarcodeScanner['scan']();
-      
-      if (result.barcodes != null) {       
-        this.scannedNumber = result.barcodes[0].rawValue;
-        this.qrData = JSON.parse(this.scannedNumber);
+  async toggleRecording(): Promise<void> {
+    const status = await this.voiceRecorderService.getRecordingStatus();
+    this.isRecording = status === 'RECORDING';
 
-        if(this.qrData.tenantId === this.tenantId){
-          if(this.qrData.ticketNumber.includes('TKT')){          
-              this.router.navigate(['/user-order'], {
-                queryParams: {
-                  ticketNo: this.qrData.ticketNumber,
-                  invoiceNo: this.qrData.invoiceNumber,
-                  tenantId: this.qrData.tenantId,
-                  type: this.qrData.type
-                }
-              });                                
-          } else{
-              this.helper.presentErrorToast("this is not a valid number");
-          } 
-        } else {
-          this.helper.presentErrorToast('this user not able to process the order');
-        }             
+    if (this.isRecording) {
+      const recording = await this.voiceRecorderService.stopRecording();
+      this.isRecording = false;
+      if (recording?.value) {
+        debugger
+        this.recordedFileObj = recording.value; //Store this audio object in API
+        console.log('Recorded Audio ------------------>');
+        console.log(this.recordedFileObj);
       }
-    } catch (error) {
-        console.error('Barcode scanning error:', error);
+    } else {
+      await this.voiceRecorderService.startRecording();
+      this.isRecording = true;
+      this.recordedFileObj = null;
     }
-  };
+  }
+
+
 
 }

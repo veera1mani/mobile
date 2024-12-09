@@ -8,23 +8,23 @@
         Home
       </div>
     </ion-tab-button>
-    <ion-tab-button (click)="onTabChange('orders')" [class.selected]="selectedTab === 'orders'" tab="common-page" >
+    <ion-tab-button (click)="onTabChange('assets')" [class.selected]="selectedTab === 'assets'" tab="assets" >
       <div  class="flow_view">
         <ion-icon class="icon_size" name="shield-checkmark-outline" ></ion-icon>
-      Goals
+      Equipments
     </div>
   </ion-tab-button>
-    <ion-tab-button (click)="onTabChange('returns')" [class.selected]="selectedTab === 'returns'" tab="common-page" >
+    <ion-tab-button (click)="onTabChange('offers')" [class.selected]="selectedTab === 'offers'" tab="offers" >
       <div  class="flow_view">
         <ion-icon class="icon_size" name="people-outline" ></ion-icon>
-      Statistic
+      Recommendations
     </div>
   </ion-tab-button>
-    <ion-tab-button (click)="onTabChange('cheques')" [class.selected]="selectedTab === 'cheques'" tab="common-page">
+    <!-- <ion-tab-button (click)="onTabChange('cheques')" [class.selected]="selectedTab === 'cheques'" tab="common-page">
       <div  class="flow_view">
         <ion-icon class="icon_size" name="calculator-outline" ></ion-icon>
       Calc
     </div>
-  </ion-tab-button>
+  </ion-tab-button> -->
   </ion-tab-bar>   
 </ion-tabs>

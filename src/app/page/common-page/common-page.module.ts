@@ -8,6 +8,7 @@ import { CommonPagePageRoutingModule } from './common-page-routing.module';
 
 import { CommonPagePage } from './common-page.page';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     FormsModule,
     IonicModule,
     CommonPagePageRoutingModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    SharedModule
   ],
   declarations: [CommonPagePage]
 })

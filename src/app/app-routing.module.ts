@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./page/splash-screen/splash-screen.module').then( m => m.SplashScreenPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./page/home-bottom-navi/home-bottom-navi.module').then( m => m.HomeBottomNaviPageModule)
   },  
   {
     path: 'login-page',
@@ -40,6 +44,8 @@ const routes: Routes = [
     path: 'scan-qr',
     loadChildren: () => import('./page/scan-qr/scan-qr.module').then( m => m.ScanQrPageModule)
   }
+
+
 
 
 

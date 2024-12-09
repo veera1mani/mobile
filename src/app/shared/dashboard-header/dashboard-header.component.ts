@@ -34,26 +34,7 @@ export class DashboardHeaderComponent implements OnInit {
    */
 
   logout() {
-    this.auth.openSpinner();
-    this.auth.logout().then((data: any) => {
-      this.auth.closeSpinner(); 
-      this.logoutModel = false;
-      if(data.message == 'Token required'){
-        const tenant: any = localStorage.getItem('tenant_id');
-        if(localStorage.clear() == null ){
-          localStorage.setItem('tenant_id', tenant);
-        }
-        this.navctrl.navigateRoot("/enter-pin");
-      }
-      const tenant: any = localStorage.getItem('tenant_id');
-      if(localStorage.clear() == null ){
-        localStorage.setItem('tenant_id', tenant);
-      }
-      this.navctrl.navigateRoot("/enter-pin");
-    }).catch((err) => {
-      this.auth.closeSpinner();
-      console.log(err)
-    })
+    this.navctrl.navigateRoot('/scan-qr');
   }
 
 

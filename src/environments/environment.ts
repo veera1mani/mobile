@@ -7,7 +7,7 @@ export const environment = {
   name: "(DEV)",
 
   //  baseUrl:"http://localhost:8080/"
-  baseUrl:"http://localhost:8080/"
+  baseUrl:"http://3.239.247.90:8080/"
   // baseUrl:"http://192.168.68.142:8090/"    // bala 
   
   // baseUrl:"https://nonprodapi.healthtraze.in/"     // non-prod 

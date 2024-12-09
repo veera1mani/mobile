@@ -36,19 +36,7 @@ export class EtrazeNotificationPage implements OnInit, OnDestroy {
     console.log('destroy');
   }
   backNav() {
-    
-    if(this.userRole == "MANAGER"  ){
-      this.router.navigateByUrl('/common-dashboard/home');
-    }
-    else if(this.userRole == "USER"){
-      this.router.navigateByUrl('/common-dashboard/user-home');
-    }
-    else if(this.userRole == "SUPERADMIN"){
-      this.router.navigateByUrl('/common-dashboard/o-orders');
-    }
-    else if(this.userRole == "SECURITY"){
-      this.router.navigateByUrl('/visitor');
-    }
+    this.router.navigateByUrl('/common-dashboard/common-page');
   }
 
 

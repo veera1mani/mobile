@@ -1,89 +1,50 @@
-.violet {
-  color: rgb(81, 0, 231);
-}
-.io {
-  width: 30px !important;
-  height: 30px !important;
-}
-
-.l {
-  font-size: 1.2rem;
-  font-weight: 600;
-  padding-bottom: 0.5rem;
-}
-
-.scan-btn{
-  border-radius: 14px;
-}
-
-.de {
-  color: gray;
-  /* margin: auto; */
-  /* width: 80%; */
-  text-align: center;
-}
-
-.see {
-  height: 20%;
+.recorder-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  position: relative;
-  top: 15px;
-  column-gap: 10px;
+  height: 100%;
 }
 
-.ee {
-  border: orange;
-  border-radius: orange 2px solid;
-  padding: 0.5rem;
-  border: 2px solid orange;
-  border-radius: 6px;
-  width: max-content;
-  line-height: 1;
-  height: 37px !important;
-  color: orange;
-  flex: 0 0 50%;
+.status-indicator {
+  text-align: center;
+  margin-bottom: 20px;
+
+  ion-icon {
+    font-size: 3rem;
+  }
+
+  p {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: var(--ion-text-color, #000);
+  }
 }
 
-.logout-btn {
-  border: orange;
-  border-radius: orange 2px solid;
-  padding: 0.5rem;
-  border: 2px solid orange;
-  border-radius: 6px;
-  width: max-content;
-  line-height: 1;
-  height: 37px !important;
-  background: orange;
-  color: white;
-  flex: 0 0 50%;
+.controls {
+  width: 100%;
 }
 
-// .ee:hover {
-//   color: white;
-//   background-color: orange;
-//   border: orange;
-//   border-radius: orange 2px solid;
-//   padding: 0.5rem;
-//   border: 2px solid orange;
-//   border-radius: 12px;
-//   width: 30%;
-// }
+.recording-info {
+  margin-top: 20px;
+  text-align: center;
 
-.btn-primary {
-}
+  p {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
 
-.btn-default {
-  padding: 10px;
-  margin: 5px;
-}
-.box-shade{
-  filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.1));
+  ion-note {
+    font-style: italic;
+    color: var(--ion-color-medium, #666);
+  }
 }
 
-.logo{
-  color: blue;
-}
-.cardcorner{
-  border-radius: 5px;
+
+.playback-controls {
+  margin-top: 10px;
+
+  ion-button {
+    margin-top: 10px;
+  }
 }
